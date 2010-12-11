@@ -3,7 +3,7 @@ require 'test_helper'
 class RegisterTest < ActiveSupport::TestCase
   test "test update room" do
     reg = create_new_register
-    assert_equal reg.room.number 1
+    assert_equal reg.room.number, 1
     reg.room.number = 2
     room = Room.find(1)
     assert_equal room.number, 1
