@@ -1,0 +1,23 @@
+<%= form_for @room, :url => { :controller => 'rooms', :action => 'create' } do |f| %> 
+  <%= f.label :number, "Number" %>
+  <%= f.text_field :number %>
+  <br/>
+
+  <%= f.label :name, "Floor" %>
+  <%= f.text_field :floor %>
+  <br/>
+
+  <%= f.label :group, "Group" %>
+  <%= f.text_field :group %>
+  <br/>
+
+  <%= f.label :length, "Length" %>
+  <%= f.text_field :length %>
+  <br/>
+
+  <%= f.label :width, "Width" %>
+  <%= f.text_field :width %>
+  <br/>
+
+  <%= f.submit "Create" %>
+<% end %>
