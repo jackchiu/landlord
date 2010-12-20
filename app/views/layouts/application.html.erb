@@ -2,13 +2,27 @@
 <html>
 <head>
   <title>Landlord Manager</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
+<%= stylesheet_link_tag :all %>
+<%= javascript_include_tag "jquery-1.4.4.min", :cache => true %>
+<%= yield :head %>
+<%= csrf_meta_tag %>
 </head>
 <body>
-  <p style="color: green"><%= flash[:notice] %></p> 
-  <p style="color: red"><%= flash[:alert] %></p> 
+  <div id="wapper">
+    <div id="head">
+      Landlord Manager
+    </div>
+    <div id="side">
+      Side Menu
+    </div>
+    <div id="main">
+      <div id="notify">
+        <p style="color: green"><%= flash[:notice] %></p>
+        <p style="color: red"><%= flash[:alert] %></p>
+      </div>
+      <div id="content">
 <%= yield %>
+      </div>
+    </div>
 </body>
 </html>
