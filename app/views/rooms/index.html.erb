@@ -2,13 +2,13 @@
 <%= javascript_include_tag "jquery.dataTables", :cache => true %>
 <script language="javascript">
   $(document).ready(function() {
-    $('#rooms').dataTable({"bPaginate": false, "bInfo": false, "bAutoWidth": false, "bLengthChange": false} );
+    $('#rooms').dataTable({"bFilter": false, "bPaginate": false, "bInfo": false, "bAutoWidth": true, "bLengthChange": false} );
   });
 </script>
 <% end %>
 
 
-<table id="rooms" width="500px">
+<table id="rooms" width="500px" class="display">
   <thead>
     <tr>
       <th>Group</th>
