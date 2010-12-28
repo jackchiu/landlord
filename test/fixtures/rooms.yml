@@ -6,18 +6,18 @@
   floor: 1
   group: west
   width: 3
-  state: free
+  state: empty
 -two:
   id: 2
   number: 2
   floor: 2
   group: west
   width: 3
-  state: free
+  state: empty
 -three:
   id: 3
   number: 3
   floor: 2
   group: west
   width: 3
-  state: free
+  state: empty

@@ -13,7 +13,7 @@ class RoomTest < ActiveSupport::TestCase
     assert_equal new_room.floor, 1
     assert_equal new_room.width, 3
     assert_match /^west$/, new_room.group 
-    assert_match /^free$/, new_room.state
+    assert_match /^empty$/, new_room.state
     new_room
   end
 end

@@ -7,13 +7,11 @@
 </script>
 <% end %>
 
-
 <table id="rooms" width="500px" class="display">
   <thead>
     <tr>
       <th>Group</th>
       <th>Number</th>
-      <th>Floor</th>
       <th>Length</th>
       <th>Width</th>
       <th>State</th>
@@ -23,8 +21,7 @@
     <% @rooms.each do |r| %>
       <tr>
         <td> <%= r.group.to_s %> </td>
-        <td> <%= r.number.to_s %> </td>
-        <td> <%= r.floor.to_s %> </td>
+        <td> <%= r.floor.to_s %> - <%= r.number.to_s %> </td>
         <td> <%= r.length.to_s %> </td>
         <td> <%= r.width.to_s %> </td>
         <td> <%= r.state.to_s %> </td>
@@ -35,11 +32,12 @@
     <tr>
       <th>Group</th>
       <th>Number</th>
-      <th>Floor</th>
       <th>Length</th>
       <th>Width</th>
       <th>State</th>
     </tr>
   </tfoot>
 </table>
-  
+
+<hr />
+<%= link_to 'New Room', :controller => 'rooms', :action => 'new' %>
