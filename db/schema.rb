@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20101228232808) do
     t.integer  "room_id",                         :null => false
     t.decimal  "rent",                            :null => false
     t.decimal  "ammeter_price", :default => 1.0,  :null => false
-    t.decimal  "watter_price",  :default => 10.0, :null => false
+    t.decimal  "water_price",   :default => 10.0, :null => false
     t.integer  "bill_interval", :default => 1,    :null => false
     t.datetime "registe_at",                      :null => false
     t.datetime "moveout_at"

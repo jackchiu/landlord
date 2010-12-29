@@ -4,7 +4,7 @@ class CreateRegisters < ActiveRecord::Migration
       t.integer :room_id, :null => false
       t.decimal :rent, :null => false
       t.decimal :ammeter_price, :null => false, :default => 1.0
-      t.decimal :watter_price, :null => false, :default => 10.0
+      t.decimal :water_price, :null => false, :default => 10.0
       t.integer :bill_interval, :null => false, :default => 1
       t.datetime :registe_at, :null => false
       t.datetime :moveout_at

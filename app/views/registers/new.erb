@@ -1,2 +1,37 @@
-ROOM_ID<br />
-<%= @reg.room_id %>
+<% content_for :head do %>
+<%= javascript_include_tag "jquery.maskedinput", :cache => true %>
+<%= javascript_include_tag "jquery.alphanumeric", :cache => true %>
+<%= javascript_include_tag "jquery-ui-1.8.7.custom.min", :cache => true %>
+<%= stylesheet_link_tag "smoothness/jquery-ui-1.8.7.custom.css" %>
+
+<script language="javascript">
+  $(document).ready(function() {
+    $('#register_ammeter_price').numeric({allow: "."});
+    $('#register_water_price').numeric({allow: "."});
+    $('#register_rent').numeric();
+
+    $('#register_registe_at').datepicker({autoSize: true, dateFormat: 'yy-mm-dd', constrainInput: false});
+  });
+</script>
+<% end %>
+
+<%= form_for @reg, :url => { :controller => 'registers', :action => 'create' } do |f| %>
+  <h2>Room Info</h2>
+  <label id="room_number">Number: <%= @reg.room.group %>-<%= @reg.room.number %></label>
+  <%= f.hidden_field :room_id, :value => @reg.room_id %>
+  <br />
+  <label id="room_state">State: <%= @reg.room.state %></label>
+
+  <h2>Register Info</h2>
+  <%= f.label :rent, 'Rent' %>
+  <%= f.text_field :rent %><br />
+  <%= f.label :ammeter_price, 'Ammeter Price' %>
+  <%= f.text_field :ammeter_price %><br />
+  <%= f.label :water_price, 'Watert Price' %>
+  <%= f.text_field :water_price %><br />
+  <%= f.label :registe_at, 'Registe Date' %>
+  <%= f.text_field :registe_at %>
+  <hr />
+  <%= f.submit "Registe" %>
+
+<% end %>
