@@ -15,6 +15,7 @@
       <th>Length</th>
       <th>Width</th>
       <th>State</th>
+      <th>Opt</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +26,7 @@
         <td> <%= r.length.to_s %> </td>
         <td> <%= r.width.to_s %> </td>
         <td> <%= r.state.to_s %> </td>
+        <td> <%= link_to 'Reg', :controller => 'registers', :action => 'new', :id => r.id %> | </td>
       </tr>
     <% end %>
   </tbody>
@@ -35,6 +37,7 @@
       <th>Length</th>
       <th>Width</th>
       <th>State</th>
+      <th>Opt</th>
     </tr>
   </tfoot>
 </table>
