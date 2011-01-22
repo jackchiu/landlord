@@ -1,8 +1,17 @@
 <% content_for :head do %>
 <%= javascript_include_tag "jquery.dataTables", :cache => true %>
+<%= javascript_include_tag "jquery.maskedinput", :cache => true %>
+
 <script language="javascript">
+  var reg = /^[0-9]{5}$/
   $(document).ready(function() {
     $('#rooms').dataTable({"bFilter": false, "bPaginate": false, "bInfo": false, "bAutoWidth": true, "bLengthChange": false} );
+
+    $(".ammeter_input").each(function() { $(this).mask("99999"); });
+
+    $(".new_ammeter").bind('submit', function(){ 
+      return reg.test($(this).children().first().val());
+    });
   });
 </script>
 <% end %>
@@ -10,32 +19,40 @@
 <table id="rooms" width="500px" class="display">
   <thead>
     <tr>
-      <th>Group</th>
-      <th>Number</th>
-      <th>Length</th>
-      <th>Width</th>
-      <th>State</th>
+      <th style="width: 120px;">SN</th>
+      <th style="width: 180px;">Last Check At</th>
+      <th style="width: 80px;">Size</th>
+      <th style="width: 80px;">State</th>
       <th>Opt</th>
     </tr>
   </thead>
   <tbody>
     <% @rooms.each do |r| %>
       <tr>
-        <td> <%= r.group.to_s %> </td>
-        <td> <%= r.floor.to_s %> - <%= r.number.to_s %> </td>
-        <td> <%= r.length.to_s %> </td>
-        <td> <%= r.width.to_s %> </td>
-        <td> <%= r.state.to_s %> </td>
-        <td> <%= link_to 'Reg', :controller => 'registers', :action => 'new', :id => r.id %> | </td>
+        <td> <%= r.sn %> </td>
+        <td> <%= r.last_check_ammeter_at.nil? ? "N/A" : r.last_check_ammeter_at.localtime.strftime("%x %X") %> </td>
+        <td> <%= r.size %> </td>
+        <td> <%= r.state %> </td>
+        <td>
+          <input type="hidden" value="<%= r.id.to_s %>" class="room_id" />
+          <form action="/ammeters/save" class="new_ammeter" id="new_ammeter" method="post">
+            <input type="text" id="ammeter_amount" name="ammeter[amount]" class="ammeter_input" style="width: 45px;"></input>
+            <input type="hidden" id="room_id" name="ammeter[room_id]" value="<%= r.id.to_s %>"></input>
+            <input type="submit" class="ammeter_submit" value="Ammeter"></input>
+            <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+            <% if r.state != 'checkin' then %>
+              <%= link_to 'Register', :controller => 'registers', :action => 'new', :id => r.id %>
+            <% end %>
+          </form>
+        </td>
       </tr>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
-      <th>Group</th>
-      <th>Number</th>
-      <th>Length</th>
-      <th>Width</th>
+      <th>SN</th>
+      <th>Last Check At</th>
+      <th>Size</th>
       <th>State</th>
       <th>Opt</th>
     </tr>

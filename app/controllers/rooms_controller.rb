@@ -19,4 +19,12 @@ class RoomsController < ApplicationController
       redirect_to :action => :new
     end
   end
+
+  def check_ammeter
+    @ammeter = Ammeter.new(params[:ammeter])
+    @ammeter.check_at = Time.now
+    @ammeter.save if @ammeter.valid?
+    
+    redirect_to :action => :index
+  end
 end

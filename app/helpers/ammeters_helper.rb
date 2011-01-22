@@ -1,0 +1,2 @@
+module AmmetersHelper
+end

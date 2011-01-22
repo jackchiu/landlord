@@ -17,7 +17,7 @@
 
 <%= form_for @reg, :url => { :controller => 'registers', :action => 'create' } do |f| %>
   <h2>Room Info</h2>
-  <label id="room_number">Number: <%= @reg.room.group %>-<%= @reg.room.number %></label>
+  <label id="room_number">Number: <%= @reg.room.sn %></label>
   <%= f.hidden_field :room_id, :value => @reg.room_id %>
   <br />
   <label id="room_state">State: <%= @reg.room.state %></label>
