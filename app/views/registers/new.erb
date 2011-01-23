@@ -11,27 +11,47 @@
     $('#register_rent').numeric();
 
     $('#register_registe_at').datepicker({autoSize: true, dateFormat: 'yy-mm-dd', constrainInput: false});
+
+    $('.tenant').bind('click', function() { 
+      $('#register_tenant_id').val($(this).val());
+    });
   });
 </script>
 <% end %>
 
 <%= form_for @reg, :url => { :controller => 'registers', :action => 'create' } do |f| %>
   <h2>Room Info</h2>
-  <label id="room_number">Number: <%= @reg.room.sn %></label>
-  <%= f.hidden_field :room_id, :value => @reg.room_id %>
-  <br />
-  <label id="room_state">State: <%= @reg.room.state %></label>
+  <label id="room_number">SN: <b><%= @reg.room.sn %></b></label><br />
+  <label id="room_state">State: <b><%= @reg.room.state %></b></label><br />
+  <label id="room_last_check_ammeter_at">Last Check Ammeter At: <b><%= @reg.room.last_check_ammeter_at.localtime.strftime("%D") %></b></label><br />
+  <label id="room_last_ammeter_amount">Last Ammeter Amount: <b><%= @reg.room.last_ammeter_amount %></b></label><br />
 
   <h2>Register Info</h2>
   <%= f.label :rent, 'Rent' %>
   <%= f.text_field :rent %><br />
   <%= f.label :ammeter_price, 'Ammeter Price' %>
   <%= f.text_field :ammeter_price %><br />
-  <%= f.label :water_price, 'Watert Price' %>
+  <%= f.label :water_price, 'Water Price' %>
   <%= f.text_field :water_price %><br />
   <%= f.label :registe_at, 'Registe Date' %>
-  <%= f.text_field :registe_at %>
+  <%= f.text_field :registe_at %><br />
+  <%= f.label :bill_interval, 'Bill Interval' %>
+  <select name="register[bill_interval]">
+    <option value="1">One Month</option>
+    <option value="2">Double Month</option>
+    <option value="3">Quarter</option>
+    <option value="6">Half a year</option>
+    <option value="12">One Year</option>
+  </select>
   <hr />
+  <ul style="list-style-type:none; padding-left:0; margin-left:0;" >
+    <% @tenants.each do |t| %>
+      <li><input type="radio" name="tenant" class="tenant" value="<%= t.id %>" /><span style="font-weight:bold;"><%= t.name %></span> / <span><%= t.desc %></span></li>
+    <% end %>
+  </ul>
+  <hr />
+  <%= f.hidden_field :room_id, :value => @reg.room_id %>
+  <%= f.hidden_field :tenant_id, :value => '' %>
   <%= f.submit "Registe" %>
 
 <% end %>

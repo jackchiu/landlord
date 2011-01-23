@@ -1,0 +1,12 @@
+<%= form_for @tenant, :url => { :controller => 'tenants', :action => 'create' } do |t| %>
+<%= t.label :name, 'Name:' %>
+<%= t.text_field :name %><br />
+<%= t.label :desc, 'Description:' %>
+<%= t.text_field :desc %><br />
+<%= t.label :cellphone, 'Cellphone:' %>
+<%= t.text_field :cellphone %><br />
+<%= t.label :id_card, 'ID Card Number:' %>
+<%= t.text_field :id_card %><br />
+<hr />
+<%= t.submit %>
+<% end %>

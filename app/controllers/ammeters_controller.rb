@@ -6,7 +6,9 @@ class AmmetersController < ApplicationController
 
     if not @ammeter.new_record? then
       @ammeter.room.last_check_ammeter_at = @ammeter.check_at
+      @ammeter.room.last_ammeter_amount = @ammeter.amount
       @ammeter.room.save
+
     end
 
     flash[:notice] = "Successful to save [#{@ammeter.room.sn}] last check ammeter time."

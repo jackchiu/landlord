@@ -20,8 +20,8 @@
   <thead>
     <tr>
       <th style="width: 120px;">SN</th>
-      <th style="width: 180px;">Last Check At</th>
-      <th style="width: 80px;">Size</th>
+      <th style="width: 120px;">Check At</th>
+      <th style="width: 120px;">Ammeter</th>
       <th style="width: 80px;">State</th>
       <th>Opt</th>
     </tr>
@@ -30,20 +30,23 @@
     <% @rooms.each do |r| %>
       <tr>
         <td> <%= r.sn %> </td>
-        <td> <%= r.last_check_ammeter_at.nil? ? "N/A" : r.last_check_ammeter_at.localtime.strftime("%x %X") %> </td>
-        <td> <%= r.size %> </td>
+        <td> <%= r.last_check_ammeter_at.nil? ? "N/A" : r.last_check_ammeter_at.localtime.strftime("%D") %> </td>
+        <td> <%= r.last_ammeter_amount %> </td>
         <td> <%= r.state %> </td>
         <td>
           <input type="hidden" value="<%= r.id.to_s %>" class="room_id" />
-          <form action="/ammeters/save" class="new_ammeter" id="new_ammeter" method="post">
+          <form action="/ammeters/save" class="new_ammeter" id="new_ammeter" method="post" style="display: inline;">
             <input type="text" id="ammeter_amount" name="ammeter[amount]" class="ammeter_input" style="width: 45px;"></input>
             <input type="hidden" id="room_id" name="ammeter[room_id]" value="<%= r.id.to_s %>"></input>
             <input type="submit" class="ammeter_submit" value="Ammeter"></input>
             <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-            <% if r.state != 'checkin' then %>
-              <%= link_to 'Register', :controller => 'registers', :action => 'new', :id => r.id %>
-            <% end %>
           </form>
+          <% if r.state != 'checkin' then %>
+            <%= link_to 'Register', :controller => 'registers', :action => 'new', :id => r.id %>
+          <% end %>
+          <% if r.state == 'checkin' then %>
+            <%= link_to 'Generate Bill', :controller => 'bills', :action => 'new', :reg_id => r.register_id %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -51,8 +54,8 @@
   <tfoot>
     <tr>
       <th>SN</th>
-      <th>Last Check At</th>
-      <th>Size</th>
+      <th>Check At</th>
+      <th>Ammeter</th>
       <th>State</th>
       <th>Opt</th>
     </tr>

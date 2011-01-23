@@ -1,6 +1,6 @@
 class Room < ActiveRecord::Base
   def sn
-    return "#{group} - #{floor}/#{number}"
+    return "#{group.upcase} - F#{floor} / #{number}"
   end
 
   def size
