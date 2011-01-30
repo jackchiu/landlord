@@ -7,13 +7,11 @@ class RoomTest < ActiveSupport::TestCase
   end
   
   def create_new_room
-    new_room = Room.find(1)
-    assert_equal new_room.id, 1
+    new_room = Room.find_by_number(1)
     assert_equal new_room.number, 1
     assert_equal new_room.floor, 1
-    assert_equal new_room.width, 3
     assert_match /^west$/, new_room.group 
-    assert_match /^empty$/, new_room.state
+    assert_match /^checkin$/, new_room.state
     new_room
   end
 end

@@ -1,19 +1,7 @@
 require 'test_helper'
 
 class RegisterTest < ActiveSupport::TestCase
-  test "test update room" do
-    reg = create_new_register
-    assert_equal reg.room.number, 1
-    reg.room.number = 2
-    room = Room.find(1)
-    assert_equal room.number, 1
-    assert reg.room.valid?
-    assert reg.room.save
-    room = Room.find(1)
-    assert_equal room.number, 2
-  end
-
-  test "test register obj presence" do
+  test "register_obj_presence" do
     reg = create_new_register
     assert reg.valid?, reg.errors.to_s
     assert reg.new_record? 
@@ -32,7 +20,7 @@ class RegisterTest < ActiveSupport::TestCase
     assert reg.invalid?
 
     reg = create_new_register
-    reg.watter_price = nil
+    reg.water_price = nil
     assert reg.invalid?
 
     reg = create_new_register
@@ -45,8 +33,10 @@ class RegisterTest < ActiveSupport::TestCase
   end
 
   def create_new_register
+    @room = Room.find_by_number(1)
+    @tenant = Tenant.find_by_name('xiaopan')
     new_reg = Register.new(
-      :room_id => 1, :rent => 400, :ammeter_price => 0.80, 
-      :watter_price => 10.00, :bill_interval => 1, :registe_at => Time.now)
+      :room_id => @room.id, :tenant_id => @tenant.id, :rent => 400, :ammeter_price => 0.80, 
+      :water_price => 10.00, :bill_interval => 1, :registe_at => Time.now)
   end
 end

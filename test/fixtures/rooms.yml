@@ -1,21 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
--one:
-  id: 1
+room_one:
   number: 1
   floor: 1
   group: west
-  width: 3
-  state: empty
--two:
-  id: 2
+  state: checkin
+
+room_two:
   number: 2
   floor: 2
   group: west
   width: 3
   state: empty
--three:
-  id: 3
+
+room_three:
   number: 3
   floor: 2
   group: west

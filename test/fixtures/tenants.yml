@@ -1,13 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  id_card: MyString
+yanjing:
+  name: yanjing
+  id_card: 22222222222222
   birthday: 2011-01-23 22:52:03
-  cellphone: MyString
-  native_place: MyString
+  cellphone: 1333333333
+  native_place: Hubei
 
-two:
-  id_card: MyString
+xiaopan:
+  name: xiaopan
+  id_card: 111111111111111
   birthday: 2011-01-23 22:52:03
-  cellphone: MyString
-  native_place: MyString
+  cellphone: 1888888888
+  native_place: Beijing

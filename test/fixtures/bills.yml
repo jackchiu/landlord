@@ -4,8 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+bill_May_room_one: 
+  register: register_room_one
+  rooms_payment: 100.00
+  water_payment: 10.00
+  ammeter_payment: 0.00
+  other_payment: 0.00
+  pay_at: <%= Time.now %>
