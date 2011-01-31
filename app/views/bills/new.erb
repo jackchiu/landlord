@@ -20,5 +20,10 @@
   
   <%= f.label :ammeter_payment, "Ammeter Payment: " %>
   <%= f.text_field :ammeter_payment, :readonly => true %><br />
+  <hr />
+  <% @ammeters.each do |a| %>
+    <input type="checkbox" class="ammeter_list"><%= a.amount %></input><br />
+  <% end %>
   <%= submit_tag "Generate" %>
 <% end %>
+<hr />
