@@ -1,2 +1,24 @@
+<% content_for :head do %>
+<%= javascript_include_tag "jquery.maskedinput", :cache => true %>
+<%= javascript_include_tag "jquery.alphanumeric", :cache => true %>
+<script language="javascript">
+  $(document).ready(function() {
+    
+  });
+</script>
+<% end %>
 
 <h1>New Bills</h1>
+<%= form_for :bill, @bill, :url => {:action => "create" } do |f| %>
+  <%= f.label :rooms_payment, "Room Payment: " %>
+  <%= f.text_field :rooms_payment %><br />
+  <%= f.label :water_payment, "Water Payment: " %>
+  <%= f.text_field :water_payment %><br />
+  <%= f.label :other_payment, "Other Payment: " %>
+  <%= f.text_field :other_payment %><br />
+  <hr />
+  
+  <%= f.label :ammeter_payment, "Ammeter Payment: " %>
+  <%= f.text_field :ammeter_payment, :readonly => true %><br />
+  <%= submit_tag "Generate" %>
+<% end %>
