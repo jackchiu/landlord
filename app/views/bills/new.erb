@@ -3,6 +3,18 @@
 <%= javascript_include_tag "jquery.alphanumeric", :cache => true %>
 <script language="javascript">
   $(document).ready(function() {
+    $(".ammeter_list").bind("click", function() {
+      var ac = 0;
+      $(".ammeter_list").each(function(){
+        if ($(this).attr("checked") == true) {
+          ac ++;
+        }
+      });
+
+      if (ac > 2) {
+        $(this).attr("checked", false);
+      }
+    });
     
   });
 </script>
@@ -22,7 +34,7 @@
   <%= f.text_field :ammeter_payment, :readonly => true %><br />
   <hr />
   <% @ammeters.each do |a| %>
-    <input type="checkbox" class="ammeter_list"><%= a.amount %></input><br />
+    <input type="checkbox" class="ammeter_list" value="<%= a.amount %>"></input> - <%= a.check_at.strftime("%x %X")%><br />
   <% end %>
   <%= submit_tag "Generate" %>
 <% end %>
