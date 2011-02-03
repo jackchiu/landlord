@@ -3,13 +3,8 @@
   <%= f.text_field :number %>
   <br/>
 
-  <%= f.label :length, "Length" %>
-  <%= f.text_field :length %>
-  <br/>
-
-  <%= f.label :width, "Width" %>
-  <%= f.text_field :width %>
-  <br/>
+  <%= f.hidden_field :length, :value => 0 %>
+  <%= f.hidden_field :width, :value => 0 %>
 
   <%= f.label :name, "Floor" %>
   <%= f.select :floor, options_for_select([['First', 1], ['Second', 2], ['Third', 3]]) %>

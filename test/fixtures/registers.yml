@@ -10,4 +10,6 @@ register_room_one:
   ammeter_price: 1.0
   water_price: 10.0
   bill_interval: 1
+  last_bill: bill_May_room_one
+  tenant: yanjing
   registe_at: <%= Time.now %>

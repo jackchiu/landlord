@@ -10,4 +10,7 @@ bill_May_room_one:
   water_payment: 10.00
   ammeter_payment: 0.00
   other_payment: 0.00
+  begin_ammeter: ammeter_first_room_one
+  end_ammeter: ammeter_second_room_one
   pay_at: <%= Time.now %>
+

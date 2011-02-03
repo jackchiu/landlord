@@ -1,6 +1,6 @@
 class AddIndexToRooms < ActiveRecord::Migration
   def self.up
-    add_index :rooms, :number, :unique => true
+    add_index :rooms, :number, :unique => false
   end
 
   def self.down

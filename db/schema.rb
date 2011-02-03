@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110123170922) do
+ActiveRecord::Schema.define(:version => 20110203184223) do
 
   create_table "ammeters", :force => true do |t|
     t.integer  "room_id",    :null => false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20110123170922) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tenant_id"
+    t.integer  "last_bill_id"
   end
 
   create_table "rooms", :force => true do |t|
@@ -58,9 +59,10 @@ ActiveRecord::Schema.define(:version => 20110123170922) do
     t.datetime "last_check_ammeter_at"
     t.integer  "last_ammeter_amount"
     t.integer  "register_id"
+    t.datetime "last_pay_at"
   end
 
-  add_index "rooms", ["number"], :name => "index_rooms_on_number", :unique => true
+  add_index "rooms", ["number"], :name => "index_rooms_on_number"
 
   create_table "tenants", :force => true do |t|
     t.string   "name"

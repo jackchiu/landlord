@@ -10,8 +10,13 @@ class Bill < ActiveRecord::Base
     errors.add(:ammeters, "end_ammeter is empty") if end_ammeter.nil? and not begin_ammeter.nil?
   end
 
-  def sum_payment
-    
+  def sum
+    @sum = 0
+    @sum += ammeter_payment if not ammeter_payment.nil?
+    @sum += rooms_payment if not rooms_payment.nil?
+    @sum += water_payment if not water_payment.nil?
+    @sum += other_payment if not other_payment.nil?
+    return @sum
   end
 
   def consume_ammeter

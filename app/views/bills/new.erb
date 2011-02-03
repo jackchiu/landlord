@@ -3,24 +3,49 @@
 <%= javascript_include_tag "jquery.alphanumeric", :cache => true %>
 <script language="javascript">
   $(document).ready(function() {
-    $(".ammeter_list").bind("click", function() {
-      var ac = 0;
-      $(".ammeter_list").each(function(){
-        if ($(this).attr("checked") == true) {
-          ac ++;
-        }
-      });
+    var ammeter_price = <%= @reg.ammeter_price %>;
+    $("#ammeter_list > input").bind("click", function() {
+      var r = $("#ammeter_list > input:checked");
 
-      if (ac > 2) {
-        $(this).attr("checked", false);
+      if (r.size() < 2) { $("#ammeter_info").text(""); }
+      
+      if (r.size() == 2) { 
+        var ammeter_sum = 0;
+        $.each(r, function() {
+          if (ammeter_sum == 0) {
+            ammeter_sum = ammeter_sum + $(this).val();
+          }
+          else {
+            ammeter_sum = Math.abs(ammeter_sum - $(this).val());
+          }
+        });
+
+        // set ammeter amount to #ammeter_info
+        $("#ammeter_info").text(ammeter_sum + " kW·h");
+        $("#bill_ammeter_payment").val(ammeter_sum * ammeter_price);
+        $("#bill_begin_ammeter_id").val(r.first().attr("name"));
+        $("#bill_end_ammeter_id").val(r.last().attr("name"));
       }
+      
+      if (r.size() > 2) { $(this).attr("checked", false); }
     });
-    
   });
 </script>
 <% end %>
 
-<h1>New Bills</h1>
+<h1>Generate Bill</h1>
+<label>Room Info: </label><label><%= @reg.room.sn %>, Last check ammeter at <%= @reg.room.last_check_ammeter_at.strftime("%x %X") %></label><hr />
+<label>Register Info: </label><label><%= @reg.registe_at.strftime("%x") %> Checked by <%= @reg.tenant.title %></label><br /><label>Room Price: ￥<%= @reg.rent %> Ammeter Price: ￥<%= @reg.ammeter_price %> Water Price: ￥<%= @reg.water_price %> Bill Interval: <%= @reg.bill_interval %> Month<hr />
+<% if @pre_bill.nil? then %>
+<label>This is first time to generate bill.<label>
+<% else %>
+<label>Last Bill Info: </label><label>Sum ￥ <%= @pre_bill.sum %></label><br />
+<% if not @pre_bill.begin_ammeter.nil? then %>
+<label>Last Ammeter Info: </label><label><%= @pre_bill.begin_ammeter.check_at.to_s(:long) %> - <%= @pre_bill.end_ammeter.check_at.to_s(:db) %> | <%= @pre_bill.begin_ammeter.amount %> - <%= @pre_bill.end_ammeter.amount %> =&nbsp; <%= @pre_bill.end_ammeter.amount - @pre_bill.begin_ammeter.amount %> kW·h</label>
+<% end %>
+<% end %>
+<hr />
+
 <%= form_for :bill, @bill, :url => {:action => "create" } do |f| %>
   <%= f.label :rooms_payment, "Room Payment: " %>
   <%= f.text_field :rooms_payment %><br />
@@ -29,13 +54,19 @@
   <%= f.label :other_payment, "Other Payment: " %>
   <%= f.text_field :other_payment %><br />
   <hr />
-  
-  <%= f.label :ammeter_payment, "Ammeter Payment: " %>
-  <%= f.text_field :ammeter_payment, :readonly => true %><br />
-  <hr />
+  <div id="ammeter_list">
   <% @ammeters.each do |a| %>
-    <input type="checkbox" class="ammeter_list" value="<%= a.amount %>"></input> - <%= a.check_at.strftime("%x %X")%><br />
+    <input type="checkbox" name="<%= a.id %>" value="<%= a.amount %>"><%= a.amount %></input> - <%= a.check_at.strftime("%x %X")%>
+    <br />
   <% end %>
+  </div>
+  <%= f.label :ammeter_payment, "Ammeter Payment: " %>
+  <%= f.text_field :ammeter_payment, :readonly => true %><label id="ammeter_info"></label><br />
+  <%= f.hidden_field :begin_ammeter_id %>
+  <%= f.hidden_field :end_ammeter_id %>
+  <hr />
+  <%= f.label :pay_at, "Pay at: " %>
+  <%= f.text_field :pay_at, :readonly => true, :value => f.object.pay_at.strftime("%Y-%m-%d") %><br />
+  <%= f.hidden_field :register_id, :value => @reg.id %>
   <%= submit_tag "Generate" %>
 <% end %>
-<hr />

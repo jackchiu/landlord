@@ -5,7 +5,7 @@
 <script language="javascript">
   var reg = /^[0-9]{5}$/
   $(document).ready(function() {
-    $('#rooms').dataTable({"bFilter": false, "bPaginate": false, "bInfo": false, "bAutoWidth": true, "bLengthChange": false} );
+    $('#rooms').dataTable({"bFilter": false, "bPaginate": false, "bInfo": false, "bAutoWidth": true, "bLengthChange": false, "aaSorting": [] });
 
     $(".ammeter_input").each(function() { $(this).mask("99999"); });
 
@@ -21,7 +21,8 @@
     <tr>
       <th style="width: 120px;">SN</th>
       <th style="width: 120px;">Check At</th>
-      <th style="width: 120px;">Ammeter</th>
+      <th style="width: 80px;">Ammeter</th>
+      <th style="width: 120px;">Pay At</th>
       <th style="width: 80px;">State</th>
       <th>Opt</th>
     </tr>
@@ -32,6 +33,7 @@
         <td> <%= r.sn %> </td>
         <td> <%= r.last_check_ammeter_at.nil? ? "N/A" : r.last_check_ammeter_at.localtime.strftime("%D") %> </td>
         <td> <%= r.last_ammeter_amount %> </td>
+        <td> <%= r.last_pay_at.strftime("%x") if not r.last_pay_at.nil? %> </td>
         <td> <%= r.state %> </td>
         <td>
           <input type="hidden" value="<%= r.id.to_s %>" class="room_id" />
@@ -56,6 +58,7 @@
       <th>SN</th>
       <th>Check At</th>
       <th>Ammeter</th>
+      <th>Pay At</th>
       <th>State</th>
       <th>Opt</th>
     </tr>

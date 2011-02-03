@@ -1,6 +1,14 @@
 require 'test_helper'
 
 class RegisterTest < ActiveSupport::TestCase
+  test "register_tenant" do
+    reg = Register.find_by_room_id(Room.find_by_number(1).id)
+    assert_equal "yanjing", reg.tenant.name
+    assert_not_nil reg.last_bill
+    assert_not_nil reg.last_bill.begin_ammeter
+    assert_not_nil reg.last_bill.end_ammeter
+  end
+
   test "register_obj_presence" do
     reg = create_new_register
     assert reg.valid?, reg.errors.to_s
